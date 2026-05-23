@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1B2A41">
+<meta name="theme-color" content="#0E0E10">
 <title>Style Guide · Henry</title>
 <style>
   :root {
     --bg: #0E0E10;
     --ink: #F2EAD3;
     --accent: #C97A3F;
-    --soft: #1A1A1D;
+    --red: #B5552B;
+    --soft: #18181B;
     --line: #2A2A2E;
     --card: #18181B;
   }
@@ -37,9 +38,8 @@
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background-image:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.92  0 0 0 0 0.83  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity: 0.6;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.92  0 0 0 0 0.83  0 0 0 0.08 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
     mix-blend-mode: overlay;
   }
   header, nav, section, footer { position: relative; z-index: 1; }
@@ -48,19 +48,21 @@
     top: 0;
     background: #000;
     color: var(--ink);
-    padding: 18px 20px;
+    padding: 16px 20px;
     z-index: 100;
     border-bottom: 1px solid var(--accent);
   }
   header h1 {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
   }
   header p {
-    font-size: 12px;
-    opacity: 0.7;
+    font-size: 11px;
+    opacity: 0.6;
     margin-top: 2px;
+    letter-spacing: 0.5px;
   }
   nav {
     display: flex;
@@ -72,7 +74,7 @@
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
     position: sticky;
-    top: 64px;
+    top: 56px;
     z-index: 99;
     scrollbar-width: none;
   }
@@ -81,536 +83,1202 @@
     flex-shrink: 0;
     background: var(--ink);
     color: #000;
-    padding: 8px 14px;
+    padding: 7px 14px;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 12px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
   }
   section {
-    padding: 28px 20px;
+    padding: 32px 20px;
     border-bottom: 1px solid var(--line);
   }
-  section h2 {
-    font-size: 22px;
-    margin-bottom: 6px;
-    letter-spacing: -0.3px;
+  .section-header {
+    margin-bottom: 24px;
   }
-  section .sub {
+  .section-header h2 {
+    font-size: 26px;
+    letter-spacing: -0.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .section-header .sub {
     font-size: 13px;
-    opacity: 0.7;
-    margin-bottom: 20px;
+    opacity: 0.6;
+    letter-spacing: 0.3px;
   }
-  .swatch-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .swatch {
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.55), 0 0 0 1px rgba(242,234,211,0.08);
-    cursor: pointer;
-    transition: transform 0.15s;
-    border: 1px solid rgba(242,234,211,0.12);
-    background: rgba(24,24,27,0.7);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-  .swatch:active { transform: scale(0.97); }
-  .swatch .color {
-    height: 110px;
-    display: flex;
-    align-items: flex-end;
-    padding: 10px 12px;
-  }
-  .swatch .color span {
-    font-size: 10px;
-    background: rgba(255,255,255,0.85);
+  .section-header .tag {
+    display: inline-block;
+    background: var(--accent);
     color: #000;
-    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 8px;
     border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .palette-strip {
+    display: flex;
+    gap: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 56px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .palette-strip div {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+    transition: flex 0.25s ease;
+  }
+  .palette-strip div:hover { flex: 1.5; }
+  .palette-strip div::after {
+    content: attr(data-hex);
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 8px;
     font-family: "SF Mono", Menlo, monospace;
-    font-weight: 600;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
-  .swatch .meta {
-    background: var(--card);
-    padding: 10px 12px;
+  .palette-strip div:hover::after { opacity: 1; }
+
+  /* Product Cards */
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-  .swatch .meta .name {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    color: var(--ink);
-  }
-  .swatch .meta .note {
-    font-size: 11px;
-    color: var(--ink);
-    opacity: 0.55;
-  }
-  .outfit {
-    background: rgba(24,24,27,0.75);
+  .product {
+    background: rgba(24,24,27,0.85);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(242,234,211,0.1);
     border-radius: 16px;
-    padding: 18px;
-    margin-bottom: 14px;
+    overflow: hidden;
     box-shadow: 0 4px 24px rgba(0,0,0,0.5);
   }
-  .outfit h3 {
-    font-size: 15px;
-    margin-bottom: 4px;
-  }
-  .outfit .tag {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--accent);
-    font-weight: 700;
-    margin-bottom: 12px;
-    display: block;
-  }
-  .pieces {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .piece {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-  }
-  .piece .dot {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 1px solid rgba(242,234,211,0.25);
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
-  }
-  .piece .label {
-    flex: 1;
-  }
-  .piece .label strong {
-    display: block;
-    font-weight: 600;
-  }
-  .piece .label small {
-    font-size: 11px;
-    opacity: 0.6;
-    font-family: "SF Mono", Menlo, monospace;
-  }
-  .rules {
-    background: linear-gradient(180deg, #1A1A1D 0%, #0E0E10 100%);
-    color: var(--ink);
-    padding: 28px 20px;
-    border-radius: 0;
-    border-top: 1px solid var(--accent);
-    border-bottom: 1px solid var(--accent);
-  }
-  .rules h2 { color: var(--ink); }
-  .rules .sub { color: rgba(242,234,211,0.55); }
-  .rule {
-    display: flex;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(242,234,211,0.12);
-  }
-  .rule:last-child { border-bottom: none; }
-  .rule .num {
-    background: var(--accent);
-    color: #fff;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
+  .product-visual {
+    width: 100%;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
-    font-weight: 700;
-    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
   }
-  .rule p { font-size: 14px; line-height: 1.5; }
-  .avoid {
-    background: var(--card);
-    border: 1px dashed #6b3a3a;
-    padding: 16px;
-    border-radius: 12px;
-    margin-top: 16px;
+  .product-visual svg {
+    width: 70%;
+    height: 80%;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.5));
   }
-  .avoid h4 {
-    font-size: 13px;
-    color: #d97a7a;
-    margin-bottom: 10px;
+  .product-info {
+    padding: 16px 18px;
+  }
+  .product-info .cat {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .product-info h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .product-info .brand {
+    font-size: 13px;
+    opacity: 0.85;
+    margin-bottom: 8px;
+  }
+  .product-info .desc {
+    font-size: 12px;
+    opacity: 0.65;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .product-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(242,234,211,0.08);
+  }
+  .product-meta .price {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: "SF Mono", Menlo, monospace;
+  }
+  .product-meta a {
+    background: var(--ink);
+    color: #000;
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
-  .avoid-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .color-tags {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .color-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.05);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .color-tag .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Outfit Composer */
+  .outfit-card {
+    background: rgba(24,24,27,0.85);
+    border: 1px solid rgba(242,234,211,0.1);
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  }
+  .outfit-card .num {
+    display: inline-block;
+    background: var(--accent);
+    color: #000;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .outfit-card h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .outfit-visual {
+    display: flex;
     gap: 8px;
+    overflow-x: auto;
+    padding: 12px 0;
+    scrollbar-width: none;
   }
-  .avoid-grid .item {
+  .outfit-visual::-webkit-scrollbar { display: none; }
+  .outfit-item {
+    flex-shrink: 0;
+    width: 90px;
     text-align: center;
   }
-  .avoid-grid .swatch-mini {
-    width: 100%;
-    height: 50px;
-    border-radius: 8px;
-    margin-bottom: 4px;
-    border: 1px solid rgba(242,234,211,0.15);
-    position: relative;
+  .outfit-item .silhouette {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
   }
-  .avoid-grid .item small { color: var(--ink); }
-  .avoid-grid .swatch-mini::after {
-    content: "✕";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    font-size: 20px;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  .outfit-item .silhouette svg {
+    width: 80%;
+    height: 80%;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
   }
-  .avoid-grid .item small {
+  .outfit-item .label {
     font-size: 10px;
     opacity: 0.7;
+    line-height: 1.3;
   }
-  .copy-toast {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--ink);
-    color: var(--bg);
-    padding: 12px 20px;
-    border-radius: 30px;
+
+  /* Color swatch picks */
+  .swatch-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .swatch-pick {
+    text-align: center;
+  }
+  .swatch-pick .chip {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    border: 1px solid rgba(242,234,211,0.1);
+  }
+  .swatch-pick .name {
+    font-size: 10px;
+    opacity: 0.7;
+    line-height: 1.2;
+  }
+  .swatch-pick .hex {
+    font-size: 9px;
+    opacity: 0.4;
+    font-family: "SF Mono", Menlo, monospace;
+  }
+
+  .alert {
+    background: linear-gradient(135deg, rgba(181,85,43,0.15), rgba(155,79,31,0.05));
+    border-left: 3px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin: 16px 0;
     font-size: 13px;
-    transition: transform 0.3s;
-    z-index: 1000;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    line-height: 1.5;
   }
-  .copy-toast.show {
-    transform: translateX(-50%) translateY(0);
-  }
+  .alert strong { color: var(--accent); }
+
   footer {
     text-align: center;
     padding: 30px 20px;
-    font-size: 12px;
-    opacity: 0.5;
+    font-size: 11px;
+    opacity: 0.4;
   }
-  @media (min-width: 600px) {
-    .swatch-grid { grid-template-columns: repeat(3, 1fr); }
+  @media (min-width: 700px) {
     body { max-width: 720px; margin: 0 auto; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Style Guide</h1>
-  <p>183 cm · Deep Autumn · Operator</p>
+  <h1>STYLE GUIDE</h1>
+  <p>183 cm · Deep Autumn · STM Maxed</p>
 </header>
 
 <nav>
-  <a href="#tops">Tops</a>
-  <a href="#bottoms">Bottoms</a>
-  <a href="#cuero">Cuero</a>
-  <a href="#outfits">Outfits</a>
-  <a href="#reglas">Reglas</a>
-  <a href="#evitar">Evitar</a>
-  <a href="#sport">Sport STM</a>
+  <a href="#casual">Casual</a>
+  <a href="#casual-fits">Casual Fits</a>
+  <a href="#gym">Gym</a>
+  <a href="#gym-fits">Gym Fits</a>
+  <a href="#accesorios">Accesorios</a>
+  <a href="#fragancia">Fragancia</a>
+  <a href="#shopping">Shopping List</a>
 </nav>
 
-<section id="tops">
-  <h2>Upper body</h2>
-  <p class="sub">Enmarcan la cara. Iluminan o apagan el rostro.</p>
-  <div class="swatch-grid">
-    <div class="swatch"><div class="color" style="background:#F2EAD3"><span>#F2EAD3</span></div><div class="meta"><div class="name">Blanco hueso</div><div class="note">Top de la lista</div></div></div>
-    <div class="swatch"><div class="color" style="background:#EFE5D0"><span>#EFE5D0</span></div><div class="meta"><div class="name">Crema</div><div class="note">Más cálido</div></div></div>
-    <div class="swatch"><div class="color" style="background:#1B2A41"><span style="background:rgba(255,255,255,0.9)">#1B2A41</span></div><div class="meta"><div class="name">Marino profundo</div><div class="note">Lectura status</div></div></div>
-    <div class="swatch"><div class="color" style="background:#5B6F3A"><span style="background:rgba(255,255,255,0.9)">#5B6F3A</span></div><div class="meta"><div class="name">Verde oliva</div><div class="note">Armoniza piel</div></div></div>
-    <div class="swatch"><div class="color" style="background:#3D4127"><span style="background:rgba(255,255,255,0.9)">#3D4127</span></div><div class="meta"><div class="name">Verde militar</div><div class="note">Más oscuro</div></div></div>
-    <div class="swatch"><div class="color" style="background:#5C1A1B"><span style="background:rgba(255,255,255,0.9)">#5C1A1B</span></div><div class="meta"><div class="name">Borgoña</div><div class="note">Color sin gritar</div></div></div>
-    <div class="swatch"><div class="color" style="background:#A47148"><span>#A47148</span></div><div class="meta"><div class="name">Camel</div><div class="note">Premium silencioso</div></div></div>
-    <div class="swatch"><div class="color" style="background:#7B4F2C"><span style="background:rgba(255,255,255,0.9)">#7B4F2C</span></div><div class="meta"><div class="name">Tabaco</div><div class="note">Más oscuro</div></div></div>
-    <div class="swatch"><div class="color" style="background:#161616"><span style="background:rgba(255,255,255,0.9)">#161616</span></div><div class="meta"><div class="name">Negro mate</div><div class="note">Tela con textura</div></div></div>
-    <div class="swatch"><div class="color" style="background:#B5552B"><span style="background:rgba(255,255,255,0.9)">#B5552B</span></div><div class="meta"><div class="name">Terracota</div><div class="note">Diferenciador</div></div></div>
-    <div class="swatch"><div class="color" style="background:#8A3B1F"><span style="background:rgba(255,255,255,0.9)">#8A3B1F</span></div><div class="meta"><div class="name">Óxido</div><div class="note">Profundo</div></div></div>
+<!-- ============ CASUAL PALETTE ============ -->
+<section id="casual">
+  <div class="section-header">
+    <span class="tag">Casual STM</span>
+    <h2>Paleta Casual</h2>
+    <p class="sub">Negro domina · acentos cuero · blanco hueso ilumina</p>
+  </div>
+
+  <div class="palette-strip">
+    <div style="background:#161616" data-hex="#161616"></div>
+    <div style="background:#1B2A41" data-hex="#1B2A41"></div>
+    <div style="background:#F2EAD3" data-hex="#F2EAD3"></div>
+    <div style="background:#5C1A1B" data-hex="#5C1A1B"></div>
+    <div style="background:#A47148" data-hex="#A47148"></div>
+    <div style="background:#5B6F3A" data-hex="#5B6F3A"></div>
+    <div style="background:#9B4F1F" data-hex="#9B4F1F"></div>
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch-pick"><div class="chip" style="background:#161616"></div><div class="name">Negro</div><div class="hex">#161616</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#F2EAD3"></div><div class="name">Hueso</div><div class="hex">#F2EAD3</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#5C1A1B"></div><div class="name">Borgoña</div><div class="hex">#5C1A1B</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#A47148"></div><div class="name">Camel</div><div class="hex">#A47148</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#1B2A41"></div><div class="name">Marino</div><div class="hex">#1B2A41</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#5B6F3A"></div><div class="name">Oliva</div><div class="hex">#5B6F3A</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#9B4F1F"></div><div class="name">Cognac</div><div class="hex">#9B4F1F</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#1F2E47"></div><div class="name">Indigo</div><div class="hex">#1F2E47</div></div>
+  </div>
+
+  <div class="alert">
+    <strong>Pieza estrella STM:</strong> henley negra ajustada con 2 botones abiertos. Marca clavícula, expone cadena plata, V-taper visible. Es la prenda casual más sexual del wardrobe masculino.
+  </div>
+
+  <h3 style="font-size:18px;margin:24px 0 14px;letter-spacing:-0.3px;">Pieces · Casual STM</h3>
+
+  <div class="product-grid">
+
+    <!-- HENLEY -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 15 L40 10 L45 18 Q50 22 55 18 L60 10 L70 15 L80 25 L75 35 L70 32 L70 100 L30 100 L30 32 L25 35 L20 25 Z" fill="#161616" stroke="#333" stroke-width="0.5"/>
+          <line x1="50" y1="18" x2="50" y2="40" stroke="#333" stroke-width="0.4"/>
+          <circle cx="50" cy="24" r="0.8" fill="#888"/>
+          <circle cx="50" cy="30" r="0.8" fill="#888"/>
+          <circle cx="50" cy="36" r="0.8" fill="#888"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Top · Henley</div>
+        <h3>Henley negra manga corta</h3>
+        <div class="brand">Buck Mason · Todd Snyder · Uniqlo U</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Negro</span>
+          <span class="color-tag"><span class="dot" style="background:#1B2A41"></span>Marino</span>
+        </div>
+        <p class="desc">Ajustada en hombros y pecho, 3 botones, 2 abiertos siempre. Algodón pesado mate.</p>
+        <div class="product-meta">
+          <span class="price">$40-90 USD</span>
+          <a href="https://www.buckmason.com/collections/mens-henleys" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMISETA NEGRA -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25 20 L35 12 L45 22 Q50 26 55 22 L65 12 L75 20 L82 30 L76 38 L70 34 L70 100 L30 100 L30 34 L24 38 L18 30 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Top · Tee</div>
+        <h3>Camiseta negra ajustada</h3>
+        <div class="brand">Uniqlo Supima · CDLP · Asket</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Negro</span>
+          <span class="color-tag"><span class="dot" style="background:#F2EAD3"></span>Hueso</span>
+        </div>
+        <p class="desc">Cuello redondo o V ligera. Algodón Supima pesado 200gsm+. Marca pecho sin estrangular.</p>
+        <div class="product-meta">
+          <span class="price">$15-60 USD</span>
+          <a href="https://www.uniqlo.com/us/en/men/tops/t-shirts" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAMISA LINO -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#F5EBD0,#E8DCC4);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 18 L38 12 L42 20 L50 22 L58 20 L62 12 L72 18 L78 28 L73 35 L73 102 L27 102 L27 35 L22 28 Z" fill="#F2EAD3" stroke="#c4b896" stroke-width="0.4"/>
+          <line x1="50" y1="22" x2="50" y2="100" stroke="#c4b896" stroke-width="0.4"/>
+          <circle cx="50" cy="50" r="0.8" fill="#9a8c70"/>
+          <circle cx="50" cy="65" r="0.8" fill="#9a8c70"/>
+          <circle cx="50" cy="80" r="0.8" fill="#9a8c70"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Top · Camisa</div>
+        <h3>Camisa lino blanco hueso</h3>
+        <div class="brand">Frank & Eileen · Zara Premium · Uniqlo Linen</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#F2EAD3"></span>Hueso</span>
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Negro</span>
+        </div>
+        <p class="desc">Oversize ligero. 3 botones abiertos. Mangas dobladas mid-forearm. Verano top STM.</p>
+        <div class="product-meta">
+          <span class="price">$40-200 USD</span>
+          <a href="https://www.uniqlo.com/us/en/men/tops/linen-shirts" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- POLO BORGOÑA -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#6e2222,#5C1A1B);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 18 L38 12 L43 22 L50 28 L57 22 L62 12 L72 18 L80 28 L74 36 L74 100 L26 100 L26 36 L20 28 Z" fill="#5C1A1B" stroke="#3a0e0f" stroke-width="0.4"/>
+          <path d="M43 22 L50 30 L57 22" fill="none" stroke="#3a0e0f" stroke-width="0.4"/>
+          <line x1="50" y1="30" x2="50" y2="45" stroke="#3a0e0f" stroke-width="0.4"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Top · Polo</div>
+        <h3>Polo Cuban collar borgoña</h3>
+        <div class="brand">Sandro · Zara · Bonobos · Percival</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#5C1A1B"></span>Borgoña</span>
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Negro</span>
+          <span class="color-tag"><span class="dot" style="background:#5B6F3A"></span>Oliva</span>
+        </div>
+        <p class="desc">Cuello cubano, manga corta, corte boxy. 2 botones abiertos. Lectura artista mediterráneo.</p>
+        <div class="product-meta">
+          <span class="price">$40-180 USD</span>
+          <a href="https://www.zara.com/us/en/man-shirts-l737.html" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- JEAN NEGRO -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#0e0e10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L70 10 L72 35 L68 110 L55 110 L52 50 L48 50 L45 110 L32 110 L28 35 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          <line x1="30" y1="20" x2="70" y2="20" stroke="#2a2a2a" stroke-width="0.4"/>
+          <circle cx="65" cy="16" r="0.6" fill="#888"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Bottom · Jean</div>
+        <h3>Jean negro slim straight</h3>
+        <div class="brand">A.P.C. Petit Standard · Levi's 511 · Mott & Bow</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Negro raw</span>
+          <span class="color-tag"><span class="dot" style="background:#1F2E47"></span>Indigo</span>
+        </div>
+        <p class="desc">Tiro medio-alto. Slim en muslo, straight desde rodilla. Marca pierna y glúteo sin estrangular.</p>
+        <div class="product-meta">
+          <span class="price">$60-240 USD</span>
+          <a href="https://www.apc-us.com/collections/petit-standard" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHINO CAMEL -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#B6855A,#A47148);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L70 10 L72 35 L68 110 L55 110 L52 50 L48 50 L45 110 L32 110 L28 35 Z" fill="#A47148" stroke="#7d5634" stroke-width="0.5"/>
+          <line x1="30" y1="20" x2="70" y2="20" stroke="#7d5634" stroke-width="0.4"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Bottom · Chino</div>
+        <h3>Chino slim straight camel</h3>
+        <div class="brand">Bonobos · J.Crew 484 · Uniqlo Smart Ankle</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#A47148"></span>Camel</span>
+          <span class="color-tag"><span class="dot" style="background:#5B6F3A"></span>Oliva</span>
+          <span class="color-tag"><span class="dot" style="background:#1B2A41"></span>Marino</span>
+        </div>
+        <p class="desc">Algodón pesado con elastano mínimo. Termina en tobillo con break leve.</p>
+        <div class="product-meta">
+          <span class="price">$50-130 USD</span>
+          <a href="https://www.uniqlo.com/us/en/men/bottoms/pants" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTÍN -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#2a1810,#1a0e08);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 30 L60 30 L65 35 L65 65 L80 70 L82 85 L78 90 L20 90 L18 80 L30 75 Z" fill="#3E2418" stroke="#1a0e08" stroke-width="0.5"/>
+          <path d="M40 35 L40 65" stroke="#1a0e08" stroke-width="0.3"/>
+          <circle cx="42" cy="42" r="0.6" fill="#8a6240"/>
+          <circle cx="42" cy="50" r="0.6" fill="#8a6240"/>
+          <circle cx="42" cy="58" r="0.6" fill="#8a6240"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Calzado · Botín</div>
+        <h3>Botín cuero Chelsea</h3>
+        <div class="brand">Blundstone 1901 · Thursday Boot Duke · R.M. Williams</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#3E2418"></span>Chocolate</span>
+          <span class="color-tag"><span class="dot" style="background:#7C4421"></span>Whisky</span>
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Negro</span>
+        </div>
+        <p class="desc">Cuero pulido o suede. Suela limpia. Funciona casual + smart-casual + cita.</p>
+        <div class="product-meta">
+          <span class="price">$200-450 USD</span>
+          <a href="https://thursdayboots.com/products/mens-duke-boot-brandy" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAMBA -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#0e0e10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 60 L25 50 L65 50 L80 55 L85 75 L82 82 L18 82 L13 75 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          <path d="M35 55 L38 65 M45 55 L48 65 M55 55 L58 65" stroke="#fff" stroke-width="0.6" opacity="0.7"/>
+          <path d="M18 82 L82 82" stroke="#F2EAD3" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Calzado · Sneaker</div>
+        <h3>Adidas Samba OG core black</h3>
+        <div class="brand">Adidas Originals</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Core black</span>
+        </div>
+        <p class="desc">El sneaker 2024-2026 sin discusión. Gym-to-bar perfecto. Cooked: On Cloud (tech bro).</p>
+        <div class="product-meta">
+          <span class="price">$100 USD</span>
+          <a href="https://www.adidas.com/us/samba-og-shoes/B75807.html" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section id="bottoms">
-  <h2>Lower body</h2>
-  <p class="sub">Ancla visual. Estructura y base.</p>
-  <div class="swatch-grid">
-    <div class="swatch"><div class="color" style="background:#161616"><span style="background:rgba(255,255,255,0.9)">#161616</span></div><div class="meta"><div class="name">Negro mate</div><div class="note">Versátil total</div></div></div>
-    <div class="swatch"><div class="color" style="background:#1B2A41"><span style="background:rgba(255,255,255,0.9)">#1B2A41</span></div><div class="meta"><div class="name">Marino profundo</div><div class="note">Más interesante</div></div></div>
-    <div class="swatch"><div class="color" style="background:#A47148"><span>#A47148</span></div><div class="meta"><div class="name">Camel</div><div class="note">Sube percepción</div></div></div>
-    <div class="swatch"><div class="color" style="background:#5B6F3A"><span style="background:rgba(255,255,255,0.9)">#5B6F3A</span></div><div class="meta"><div class="name">Oliva</div><div class="note">Utility elevado</div></div></div>
-    <div class="swatch"><div class="color" style="background:#2E2E2E"><span style="background:rgba(255,255,255,0.9)">#2E2E2E</span></div><div class="meta"><div class="name">Gris carbón</div><div class="note">Solo en textura</div></div></div>
-    <div class="swatch"><div class="color" style="background:#E8DCC4"><span>#E8DCC4</span></div><div class="meta"><div class="name">Crudo</div><div class="note">Verano mediterráneo</div></div></div>
-    <div class="swatch"><div class="color" style="background:#EFE5D0"><span>#EFE5D0</span></div><div class="meta"><div class="name">Crema</div><div class="note">Lino y blends</div></div></div>
-    <div class="swatch"><div class="color" style="background:#1F2E47"><span style="background:rgba(255,255,255,0.9)">#1F2E47</span></div><div class="meta"><div class="name">Indigo crudo</div><div class="note">Único jean</div></div></div>
+<!-- ============ CASUAL FITS ============ -->
+<section id="casual-fits">
+  <div class="section-header">
+    <span class="tag">Outfits</span>
+    <h2>Casual Fits</h2>
+    <p class="sub">5 combinaciones probadas para STM</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">01 · NOCHE</span>
+    <h3>Henley + jean negro + botín</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 15 L40 10 L45 18 Q50 22 55 18 L60 10 L70 15 L80 25 L75 35 L70 32 L70 100 L30 100 L30 32 L25 35 L20 25 Z" fill="#161616" stroke="#333" stroke-width="0.5"/><line x1="50" y1="18" x2="50" y2="40" stroke="#333" stroke-width="0.4"/></svg></div><div class="label">Henley negra 2 btn open</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 35 L68 110 L55 110 L52 50 L48 50 L45 110 L32 110 L28 35 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/></svg></div><div class="label">Jean negro slim</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 30 L60 30 L65 35 L65 65 L80 70 L82 85 L78 90 L20 90 L18 80 L30 75 Z" fill="#3E2418"/></svg></div><div class="label">Botín whisky</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="none" stroke="#8C8C8C" stroke-width="3"/><circle cx="30" cy="30" r="12" fill="#161616"/><circle cx="30" cy="30" r="0.5" fill="#fff"/><line x1="30" y1="30" x2="30" y2="22" stroke="#fff" stroke-width="1"/><line x1="30" y1="30" x2="36" y2="30" stroke="#fff" stroke-width="1"/></svg></div><div class="label">Reloj acero</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><path d="M15 25 Q30 20 45 25 Q42 35 30 35 Q18 35 15 25" fill="none" stroke="#C0C0C0" stroke-width="2"/></svg></div><div class="label">Cadena plata</div></div>
+    </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Henley Buck Mason ($65) · jean A.P.C. ($210) · Thursday Boot Duke ($200) · Hamilton Khaki Field ($595) · cadena plata Taxco ($100). Fragancia: Tom Ford Tobacco Vanille.</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">02 · VERANO PLAYA</span>
+    <h3>Camisa lino + bermuda camel</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M28 18 L38 12 L42 20 L50 22 L58 20 L62 12 L72 18 L78 28 L73 35 L73 102 L27 102 L27 35 L22 28 Z" fill="#F2EAD3" stroke="#c4b896" stroke-width="0.4"/></svg></div><div class="label">Lino hueso 3 btn open</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 35 L70 70 L60 70 L55 38 L45 38 L40 70 L30 70 L28 35 Z" fill="#A47148"/></svg></div><div class="label">Bermuda camel lino</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M15 60 L25 50 L65 50 L80 55 L85 75 L82 82 L18 82 L13 75 Z" fill="#fff" stroke="#ccc" stroke-width="0.5"/></svg></div><div class="label">Tenis blanco bajo</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><path d="M15 25 Q30 20 45 25 Q42 35 30 35 Q18 35 15 25" fill="none" stroke="#C0C0C0" stroke-width="2"/></svg></div><div class="label">Cadena plata</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><circle cx="22" cy="30" r="4" fill="none" stroke="#C0C0C0" stroke-width="2"/></svg></div><div class="label">Aro plata 10mm</div></div>
+    </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Uniqlo Linen Shirt ($50) · Zara linen bermuda ($45) · Common Projects Achilles ($430) o Vans Authentic ($65). Fragancia: Margiela Beach Walk.</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">03 · DÍA CASUAL ELEVADO</span>
+    <h3>Tee negra + chino camel + Samba</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M25 20 L35 12 L45 22 Q50 26 55 22 L65 12 L75 20 L82 30 L76 38 L70 34 L70 100 L30 100 L30 34 L24 38 L18 30 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/></svg></div><div class="label">Tee negra ajustada</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 35 L68 110 L55 110 L52 50 L48 50 L45 110 L32 110 L28 35 Z" fill="#A47148"/></svg></div><div class="label">Chino camel</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M15 60 L25 50 L65 50 L80 55 L85 75 L82 82 L18 82 L13 75 Z" fill="#161616"/><path d="M18 82 L82 82" stroke="#F2EAD3" stroke-width="2"/></svg></div><div class="label">Samba black</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="none" stroke="#7C4421" stroke-width="3"/><circle cx="30" cy="30" r="12" fill="#F2EAD3"/></svg></div><div class="label">Reloj cuero cognac</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><rect x="22" y="22" width="16" height="16" rx="3" fill="none" stroke="#C0C0C0" stroke-width="2"/></svg></div><div class="label">Signet plata</div></div>
+    </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Uniqlo Supima Crew ($20) · Bonobos chino ($98) · Adidas Samba OG ($100) · Timex Marlin ($199) o Hamilton Khaki. Cadena box plata 4mm.</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">04 · FRÍO/CAPAS</span>
+    <h3>Overshirt oliva + henley + jean</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M22 18 L34 10 L38 22 L50 24 L62 22 L66 10 L78 18 L84 32 L78 38 L78 105 L22 105 L22 38 L16 32 Z" fill="#5B6F3A" stroke="#3a4626" stroke-width="0.5"/><line x1="50" y1="24" x2="50" y2="100" stroke="#3a4626" stroke-width="0.4"/></svg></div><div class="label">Overshirt oliva</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 15 L40 10 L45 18 L50 22 L55 18 L60 10 L70 15 L80 25 L75 35 L70 32 L70 100 L30 100 L30 32 L25 35 L20 25 Z" fill="#F2EAD3"/></svg></div><div class="label">Henley hueso</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 35 L68 110 L55 110 L52 50 L48 50 L45 110 L32 110 L28 35 Z" fill="#1F2E47"/></svg></div><div class="label">Jean indigo</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 30 L60 30 L65 35 L65 65 L80 70 L82 85 L78 90 L20 90 L18 80 L30 75 Z" fill="#3E2418"/></svg></div><div class="label">Botín whisky</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><path d="M15 25 Q30 20 45 25 Q42 35 30 35 Q18 35 15 25" fill="none" stroke="#C0C0C0" stroke-width="2"/></svg></div><div class="label">Cadena plata</div></div>
+    </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Taylor Stitch Maritime overshirt ($168) · Buck Mason henley ($55) · A.P.C. New Standard ($210) · Blundstone 1901 ($220).</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">05 · CITA FORMAL-SEXY</span>
+    <h3>Camisa hueso + pantalón negro + Chelsea</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M28 18 L38 12 L42 20 L50 22 L58 20 L62 12 L72 18 L78 28 L73 35 L73 102 L27 102 L27 35 L22 28 Z" fill="#F2EAD3" stroke="#c4b896" stroke-width="0.4"/></svg></div><div class="label">Camisa hueso 2 btn open</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 35 L68 110 L55 110 L52 50 L48 50 L45 110 L32 110 L28 35 Z" fill="#0E0E10"/></svg></div><div class="label">Pantalón vestir negro</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 30 L60 30 L65 35 L65 65 L80 70 L82 85 L78 90 L20 90 L18 80 L30 75 Z" fill="#161616"/></svg></div><div class="label">Chelsea boot negro</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="18" fill="none" stroke="#8C8C8C" stroke-width="3"/><circle cx="30" cy="30" r="12" fill="#161616"/></svg></div><div class="label">Reloj acero negro</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><path d="M15 25 Q30 20 45 25 Q42 35 30 35 Q18 35 15 25" fill="none" stroke="#C0C0C0" stroke-width="2"/></svg></div><div class="label">Cadena plata oculta</div></div>
+    </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Frank & Eileen lino ($228) o Zara Premium ($60) · pantalón Suitsupply o Banana Republic ($120) · Blundstone Chelsea negro ($220). Fragancia: PdM Layton.</p>
   </div>
 </section>
 
-<section id="cuero">
-  <h2>Acentos cuero</h2>
-  <p class="sub">Reloj, cinturón, botín. Cierran el outfit.</p>
-  <div class="swatch-grid">
-    <div class="swatch"><div class="color" style="background:#9B4F1F"><span style="background:rgba(255,255,255,0.9)">#9B4F1F</span></div><div class="meta"><div class="name">Cognac</div><div class="note">Más versátil</div></div></div>
-    <div class="swatch"><div class="color" style="background:#7C4421"><span style="background:rgba(255,255,255,0.9)">#7C4421</span></div><div class="meta"><div class="name">Whisky</div><div class="note">Más profundo</div></div></div>
-    <div class="swatch"><div class="color" style="background:#3E2418"><span style="background:rgba(255,255,255,0.9)">#3E2418</span></div><div class="meta"><div class="name">Chocolate</div><div class="note">Formal</div></div></div>
-    <div class="swatch"><div class="color" style="background:#8C8C8C"><span style="background:rgba(255,255,255,0.9)">#8C8C8C</span></div><div class="meta"><div class="name">Acero cepillado</div><div class="note">Reloj metal</div></div></div>
+<!-- ============ GYM PALETTE ============ -->
+<section id="gym">
+  <div class="section-header">
+    <span class="tag">Sport STM</span>
+    <h2>Paleta Gym</h2>
+    <p class="sub">Negro domina · accent rojo en combate · sin logos grandes</p>
+  </div>
+
+  <div class="palette-strip">
+    <div style="background:#161616" data-hex="#161616"></div>
+    <div style="background:#2E2E2E" data-hex="#2E2E2E"></div>
+    <div style="background:#1B2A41" data-hex="#1B2A41"></div>
+    <div style="background:#B5552B" data-hex="#B5552B"></div>
+    <div style="background:#F2EAD3" data-hex="#F2EAD3"></div>
+  </div>
+
+  <div class="swatch-row">
+    <div class="swatch-pick"><div class="chip" style="background:#161616"></div><div class="name">Negro</div><div class="hex">#161616</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#2E2E2E"></div><div class="name">Carbón</div><div class="hex">#2E2E2E</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#1B2A41"></div><div class="name">Marino</div><div class="hex">#1B2A41</div></div>
+    <div class="swatch-pick"><div class="chip" style="background:#B5552B"></div><div class="name">Rojo accent</div><div class="hex">#B5552B</div></div>
+  </div>
+
+  <div class="alert">
+    <strong>Evidencia 2025:</strong> rojo aumenta atractivo masculino percibido (Elliot & Niesta, Wiedemann 2015). En combate, accent rojo en rashguard sube señal. En gym puro, negro dominante. V-taper exagerado gana eye-tracking (Garza 2017).
+  </div>
+
+  <h3 style="font-size:18px;margin:24px 0 14px;letter-spacing:-0.3px;">Pieces · Gym STM</h3>
+
+  <div class="product-grid">
+
+    <!-- TANK -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M35 15 Q40 12 45 18 Q50 22 55 18 Q60 12 65 15 L62 30 L62 100 L38 100 L38 30 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Top · Tank</div>
+        <h3>Lululemon Fast & Free Singlet</h3>
+        <div class="brand">Lululemon · Racer-back · sin logo</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Black</span>
+        </div>
+        <p class="desc">Tank atleta. Hombros expuestos, dorsales visibles desde atrás. La pieza #1 para STM en gym.</p>
+        <div class="product-meta">
+          <span class="price">$58 USD / $1,160 MXN</span>
+          <a href="https://shop.lululemon.com/p/men-tanks/Fast-And-Free-Singlet/_/prod10810062" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- METAL VENT TECH -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25 20 L35 12 L45 22 Q50 26 55 22 L65 12 L75 20 L82 30 L76 38 L70 34 L70 100 L30 100 L30 34 L24 38 L18 30 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Top · Training Tee</div>
+        <h3>Lululemon Metal Vent Tech SS</h3>
+        <div class="brand">Lululemon · Anti-stink real · King</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Black</span>
+          <span class="color-tag"><span class="dot" style="background:#2E2E2E"></span>Graphite</span>
+        </div>
+        <p class="desc">Drape favorece V-taper en fit estándar. Dupe: CRZ Yoga ($28) Amazon.</p>
+        <div class="product-meta">
+          <span class="price">$78 USD / $1,560 MXN</span>
+          <a href="https://shop.lululemon.com/c/men-metal-vent-tech-shirts/n1f3j9zpeaw" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACE BREAKER -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L70 10 L72 30 L70 70 L60 70 L55 35 L45 35 L40 70 L30 70 L28 30 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          <line x1="30" y1="18" x2="70" y2="18" stroke="#2a2a2a" stroke-width="0.4"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Bottom · Shorts 7"</div>
+        <h3>Lululemon Pace Breaker 7" Linerless</h3>
+        <div class="brand">Lululemon · Inseam óptimo 183cm</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Black</span>
+          <span class="color-tag"><span class="dot" style="background:#1B2A41"></span>True navy</span>
+        </div>
+        <p class="desc">7" daily, 5" leg day. Marca quad sin gritar. Dupe: CRZ Yoga ($28).</p>
+        <div class="product-meta">
+          <span class="price">$68 USD / $1,360 MXN</span>
+          <a href="https://shop.lululemon.com/p/mens-shorts/Pace-Breaker-Short-Linerless-7" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RASHGUARD -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#1a0a0a,#0e0e10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25 20 L35 12 L45 22 Q50 26 55 22 L65 12 L75 20 L85 35 L88 100 L78 102 L75 38 L70 36 L70 110 L30 110 L30 36 L25 38 L22 102 L12 100 L15 35 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.4"/>
+          <path d="M70 50 L78 55 L78 75 L70 75 Z" fill="#B5552B" opacity="0.85"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Combate · Rashguard</div>
+        <h3>Hayabusa Arrow LS</h3>
+        <div class="brand">Hayabusa · Manga larga · Accent rojo</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Black</span>
+          <span class="color-tag"><span class="dot" style="background:#B5552B"></span>Red accent</span>
+        </div>
+        <p class="desc">Marca cuerpo entero. Tier serio para BJJ/MMA. Lectura "operador" sin tryhard.</p>
+        <div class="product-meta">
+          <span class="price">$65 USD / $1,300 MXN</span>
+          <a href="https://hayabusafight.com/collections/mens-rashguards" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- FIGHT SHORTS -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 10 L72 10 L75 35 L72 90 L58 90 L54 40 L46 40 L42 90 L28 90 L25 35 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          <line x1="28" y1="18" x2="72" y2="18" stroke="#2a2a2a" stroke-width="0.4"/>
+          <rect x="62" y="55" width="3" height="20" fill="#B5552B" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Combate · Fight Shorts</div>
+        <h3>Hayabusa Kyoudo Mid-Length</h3>
+        <div class="brand">Hayabusa · Corte recto · Negro</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Black</span>
+        </div>
+        <p class="desc">Hasta la rodilla, sin slits agresivos. Sin diseños calaveras/dragones.</p>
+        <div class="product-meta">
+          <span class="price">$55 USD / $1,100 MXN</span>
+          <a href="https://hayabusafight.com/collections/mens-shorts" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NANO X4 -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#0e0e10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 60 L25 50 L65 50 L80 55 L85 75 L82 82 L18 82 L13 75 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          <path d="M13 75 L85 75" stroke="#F2EAD3" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Calzado · Training</div>
+        <h3>Reebok Nano X4 all-black</h3>
+        <div class="brand">Reebok · Hybrid · BJJ + Hipertrofia</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Core black</span>
+        </div>
+        <p class="desc">Mejor que Metcon para clases mixtas. Suela plana suficiente para lifting moderado.</p>
+        <div class="product-meta">
+          <span class="price">$110-150 USD</span>
+          <a href="https://www.reebok.com/us/nano-x4" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOODIE -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M30 10 L40 5 Q50 0 60 5 L70 10 L82 28 L78 35 L78 105 L22 105 L22 35 L18 28 Z" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          <path d="M40 5 Q50 18 60 5" fill="#0a0a0c" stroke="#2a2a2a" stroke-width="0.4"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Layer · Hoodie</div>
+        <h3>Lululemon Steady State Hoodie</h3>
+        <div class="brand">Lululemon · Llegada/salida gym</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Black</span>
+        </div>
+        <p class="desc">Algodón fleece premium. Corte limpio. Cero logo grande.</p>
+        <div class="product-meta">
+          <span class="price">$118 USD / $2,360 MXN</span>
+          <a href="https://shop.lululemon.com/p/men-hoodies/Steady-State-Hoodie" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCESORIES GYM -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#0e0e10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="40" width="60" height="20" rx="3" fill="#161616" stroke="#2a2a2a" stroke-width="0.5"/>
+          <rect x="48" y="45" width="4" height="10" fill="#8C8C8C"/>
+          <rect x="42" y="44" width="3" height="12" fill="#444"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Acc · Belt</div>
+        <h3>Element 26 Self-Locking belt</h3>
+        <div class="brand">Element 26 · Nylon · Velcro</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Black</span>
+        </div>
+        <p class="desc">Lectura operador-funcional. Cuero IPF si vas powerlifter serio. Cero calaveras/logos.</p>
+        <div class="product-meta">
+          <span class="price">$50 USD / $1,000 MXN</span>
+          <a href="https://element26.com/products/self-locking-weightlifting-belt" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<section id="outfits">
-  <h2>Outfits probados</h2>
-  <p class="sub">12 combinaciones listas para copiar.</p>
-
-  <div class="outfit">
-    <span class="tag">Casual elevado · 01</span>
-    <h3>Polo crema + chino camel</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#F2EAD3"></div><div class="label"><strong>Polo blanco hueso</strong><small>#F2EAD3</small></div></div>
-      <div class="piece"><div class="dot" style="background:#A47148"></div><div class="label"><strong>Chino camel</strong><small>#A47148</small></div></div>
-      <div class="piece"><div class="dot" style="background:#FFFFFF;border:1px solid #ccc"></div><div class="label"><strong>Tenis blanco minimalista</strong><small>Stan Smith / Court Vision</small></div></div>
-      <div class="piece"><div class="dot" style="background:#9B4F1F"></div><div class="label"><strong>Reloj cuero marrón</strong><small>#9B4F1F</small></div></div>
-    </div>
+<!-- ============ GYM FITS ============ -->
+<section id="gym-fits">
+  <div class="section-header">
+    <span class="tag">Outfits Gym</span>
+    <h2>Gym Fits</h2>
+    <p class="sub">4 uniforms por contexto</p>
   </div>
 
-  <div class="outfit">
-    <span class="tag">Casual elevado · 02</span>
-    <h3>Quarter-zip marino + jean indigo</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#1B2A41"></div><div class="label"><strong>Quarter-zip marino</strong><small>#1B2A41</small></div></div>
-      <div class="piece"><div class="dot" style="background:#1F2E47"></div><div class="label"><strong>Jean indigo crudo</strong><small>#1F2E47</small></div></div>
-      <div class="piece"><div class="dot" style="background:#7C4421"></div><div class="label"><strong>Botín marrón whisky</strong><small>#7C4421</small></div></div>
-      <div class="piece"><div class="dot" style="background:#8C8C8C"></div><div class="label"><strong>Reloj acero cepillado</strong><small>#8C8C8C</small></div></div>
+  <div class="outfit-card">
+    <span class="num">01 · FUERZA · UNIFORM DIARIO</span>
+    <h3>Tank + Pace Breaker + Nano</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M35 15 Q40 12 45 18 L50 22 L55 18 Q60 12 65 15 L62 30 L62 100 L38 100 L38 30 Z" fill="#161616"/></svg></div><div class="label">Tank racer-back</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 30 L70 70 L60 70 L55 35 L45 35 L40 70 L30 70 L28 30 Z" fill="#161616"/></svg></div><div class="label">Pace Breaker 7"</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M15 60 L25 50 L65 50 L80 55 L85 75 L82 82 L18 82 L13 75 Z" fill="#161616"/><path d="M13 75 L85 75" stroke="#F2EAD3" stroke-width="2"/></svg></div><div class="label">Nano X4</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><rect x="15" y="25" width="30" height="10" fill="#161616"/></svg></div><div class="label">Belt nylon</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><rect x="22" y="15" width="16" height="35" rx="3" fill="#161616"/></svg></div><div class="label">Owala 24oz</div></div>
     </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Lulu singlet ($58) · Pace Breaker 7" ($68) · Nano X4 ($110) · Element 26 belt ($50) · Owala FreeSip ($30). Total: $316.</p>
   </div>
 
-  <div class="outfit">
-    <span class="tag">Casual elevado · 03</span>
-    <h3>Camiseta oliva + pantalón crema</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#5B6F3A"></div><div class="label"><strong>Camiseta oliva</strong><small>#5B6F3A</small></div></div>
-      <div class="piece"><div class="dot" style="background:#E8DCC4"></div><div class="label"><strong>Pantalón crudo</strong><small>#E8DCC4</small></div></div>
-      <div class="piece"><div class="dot" style="background:#FFFFFF;border:1px solid #ccc"></div><div class="label"><strong>Tenis blanco minimalista</strong><small>Bajo perfil</small></div></div>
+  <div class="outfit-card">
+    <span class="num">02 · COMBATE · BJJ/MMA</span>
+    <h3>Rashguard + fight shorts</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M25 20 L35 12 L45 22 L50 26 L55 22 L65 12 L75 20 L85 35 L88 100 L78 102 L75 38 L70 36 L70 110 L30 110 L30 36 L25 38 L22 102 L12 100 L15 35 Z" fill="#161616"/><path d="M70 50 L78 55 L78 75 L70 75 Z" fill="#B5552B"/></svg></div><div class="label">Hayabusa Arrow LS</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M28 10 L72 10 L75 35 L72 90 L58 90 L54 40 L46 40 L42 90 L28 90 L25 35 Z" fill="#161616"/></svg></div><div class="label">Kyoudo shorts</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d;font-size:24px;display:flex;align-items:center;justify-content:center;color:#666"><span>🦶</span></div><div class="label">Descalzo</div></div>
     </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Hayabusa Arrow LS rashguard ($65) · Hayabusa Kyoudo Mid shorts ($55). Total: $120. Tier serio sin influencer wannabe.</p>
   </div>
 
-  <div class="outfit">
-    <span class="tag">Casual elevado · 04</span>
-    <h3>Overshirt camel + camiseta crema</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#A47148"></div><div class="label"><strong>Overshirt camel</strong><small>#A47148</small></div></div>
-      <div class="piece"><div class="dot" style="background:#F2EAD3"></div><div class="label"><strong>Camiseta blanco hueso debajo</strong><small>#F2EAD3</small></div></div>
-      <div class="piece"><div class="dot" style="background:#5B6F3A"></div><div class="label"><strong>Chino oliva</strong><small>#5B6F3A</small></div></div>
-      <div class="piece"><div class="dot" style="background:#9B4F1F"></div><div class="label"><strong>Botín cognac</strong><small>#9B4F1F</small></div></div>
+  <div class="outfit-card">
+    <span class="num">03 · CARDIO OUTDOOR</span>
+    <h3>Dri-fit + short + Pegasus</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M25 20 L35 12 L45 22 L50 26 L55 22 L65 12 L75 20 L82 30 L76 38 L70 34 L70 100 L30 100 L30 34 L24 38 L18 30 Z" fill="#2E2E2E"/></svg></div><div class="label">Dri-fit graphite</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 30 L70 70 L60 70 L55 35 L45 35 L40 70 L30 70 L28 30 Z" fill="#161616"/></svg></div><div class="label">Flex Stride 7"</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M15 60 L25 50 L65 50 L80 55 L85 75 L82 82 L18 82 L13 75 Z" fill="#161616"/></svg></div><div class="label">Pegasus 41</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><path d="M15 30 Q30 20 45 30 L45 40 L15 40 Z" fill="#161616"/></svg></div><div class="label">Gorra negra plain</div></div>
     </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Nike Dri-FIT Miler tee ($30) · Flex Stride 7" ($55) · Pegasus 41 ($140). Total: $225.</p>
   </div>
 
-  <div class="outfit">
-    <span class="tag">Athleisure · 05</span>
-    <h3>Hoodie negro + jogger carbón</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Hoodie negro</strong><small>#161616</small></div></div>
-      <div class="piece"><div class="dot" style="background:#2E2E2E"></div><div class="label"><strong>Jogger gris carbón</strong><small>#2E2E2E</small></div></div>
-      <div class="piece"><div class="dot" style="background:#FFFFFF;border:1px solid #ccc"></div><div class="label"><strong>Tenis blanco</strong><small>On Cloud / Stan Smith</small></div></div>
+  <div class="outfit-card">
+    <span class="num">04 · LLEGADA/SALIDA GYM</span>
+    <h3>Hoodie + jogger + Samba</h3>
+    <div class="outfit-visual">
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L40 5 L60 5 L70 10 L82 28 L78 35 L78 105 L22 105 L22 35 L18 28 Z" fill="#161616"/><path d="M40 5 Q50 18 60 5" fill="#0a0a0c"/></svg></div><div class="label">Steady State hoodie</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M30 10 L70 10 L72 35 L66 110 L55 110 L52 50 L48 50 L45 110 L34 110 L28 35 Z" fill="#161616"/></svg></div><div class="label">ABC jogger</div></div>
+      <div class="outfit-item"><div class="silhouette"><svg viewBox="0 0 100 120"><path d="M15 60 L25 50 L65 50 L80 55 L85 75 L82 82 L18 82 L13 75 Z" fill="#161616"/><path d="M35 55 L38 65 M45 55 L48 65 M55 55 L58 65" stroke="#fff" stroke-width="0.6" opacity="0.7"/><path d="M18 82 L82 82" stroke="#F2EAD3" stroke-width="2"/></svg></div><div class="label">Samba OG</div></div>
+      <div class="outfit-item"><div class="silhouette" style="background:#1a1a1d"><svg viewBox="0 0 60 60"><rect x="15" y="20" width="30" height="25" rx="3" fill="#161616"/></svg></div><div class="label">Aer Gym Pack</div></div>
     </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Athleisure · 06</span>
-    <h3>Quarter-zip negro + jogger marino</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Quarter-zip negro</strong><small>#161616</small></div></div>
-      <div class="piece"><div class="dot" style="background:#1B2A41"></div><div class="label"><strong>Jogger marino</strong><small>#1B2A41</small></div></div>
-      <div class="piece"><div class="dot" style="background:#FFFFFF;border:1px solid #ccc"></div><div class="label"><strong>On Cloud all-white</strong><small>Casual post-gym</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Gym · 07</span>
-    <h3>Dri-fit marino + short negro</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#1B2A41"></div><div class="label"><strong>Camiseta dri-fit marino</strong><small>#1B2A41 · regular fit</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Short 7" negro</strong><small>#161616 · mid-thigh</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Tenis flat-sole negro</strong><small>Metcon / Nano</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Gym · 08</span>
-    <h3>Tank negro + short marino</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Tank atleta negro</strong><small>#161616 · día de brazo</small></div></div>
-      <div class="piece"><div class="dot" style="background:#1B2A41"></div><div class="label"><strong>Short 7" marino</strong><small>#1B2A41</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Tenis flat-sole negro</strong><small>Sin logos</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Verano · 09</span>
-    <h3>Camiseta lino crema + bermuda camel</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#F2EAD3"></div><div class="label"><strong>Camiseta lino blanco hueso</strong><small>#F2EAD3</small></div></div>
-      <div class="piece"><div class="dot" style="background:#A47148"></div><div class="label"><strong>Bermuda lino camel</strong><small>#A47148 · arriba de rodilla</small></div></div>
-      <div class="piece"><div class="dot" style="background:#FFFFFF;border:1px solid #ccc"></div><div class="label"><strong>Tenis blanco bajo perfil</strong><small>Court Vision / Samba</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Verano · 10</span>
-    <h3>Polo borgoña + bermuda crema</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#5C1A1B"></div><div class="label"><strong>Polo borgoña</strong><small>#5C1A1B</small></div></div>
-      <div class="piece"><div class="dot" style="background:#EFE5D0"></div><div class="label"><strong>Bermuda crema</strong><small>#EFE5D0</small></div></div>
-      <div class="piece"><div class="dot" style="background:#FFFFFF;border:1px solid #ccc"></div><div class="label"><strong>Alpargata o tenis blanco</strong><small>Verano social</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Frío · 11</span>
-    <h3>Overshirt oliva + jean indigo</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#5B6F3A"></div><div class="label"><strong>Overshirt oliva</strong><small>#5B6F3A</small></div></div>
-      <div class="piece"><div class="dot" style="background:#F2EAD3"></div><div class="label"><strong>Camiseta blanco hueso</strong><small>#F2EAD3 · debajo</small></div></div>
-      <div class="piece"><div class="dot" style="background:#1F2E47"></div><div class="label"><strong>Jean indigo</strong><small>#1F2E47</small></div></div>
-      <div class="piece"><div class="dot" style="background:#7C4421"></div><div class="label"><strong>Botín marrón whisky</strong><small>#7C4421</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Frío · 12</span>
-    <h3>Quarter-zip merino crema + chino marino</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#EFE5D0"></div><div class="label"><strong>Quarter-zip merino crema</strong><small>#EFE5D0 · Smartwool / Icebreaker</small></div></div>
-      <div class="piece"><div class="dot" style="background:#1B2A41"></div><div class="label"><strong>Chino marino</strong><small>#1B2A41</small></div></div>
-      <div class="piece"><div class="dot" style="background:#9B4F1F"></div><div class="label"><strong>Botín cognac</strong><small>#9B4F1F</small></div></div>
-    </div>
+    <p style="font-size:12px;opacity:0.65;margin-top:10px;line-height:1.5;">Lulu Steady State hoodie ($118) · Lulu ABC jogger ($128) · Adidas Samba OG ($100) · Aer Gym Duffel ($170). Estética operador serio.</p>
   </div>
 </section>
 
-<section id="reglas" class="rules">
-  <h2>Reglas de combinación</h2>
-  <p class="sub">Si dudas, vuelve aquí.</p>
-  <div class="rule"><div class="num">1</div><p><strong>Contraste vertical.</strong> Claro arriba + oscuro abajo. Atrae mirada al rostro, alarga silueta.</p></div>
-  <div class="rule"><div class="num">2</div><p><strong>Temperatura coherente.</strong> Todo cálido o todo neutro. Nunca mezclar cálido con frío puro.</p></div>
-  <div class="rule"><div class="num">3</div><p><strong>Una pieza saturada máximo.</strong> Borgoña, terracota o verde botella va sola. Resto neutro.</p></div>
-  <div class="rule"><div class="num">4</div><p><strong>Acento en cuero.</strong> Reloj, cinturón, botín en café/cognac. Es tu acento universal.</p></div>
-  <div class="rule"><div class="num">5</div><p><strong>Telas mate.</strong> Lino, algodón pesado, lana, gamuza. Brillo = bajo estatus.</p></div>
-  <div class="rule"><div class="num">6</div><p><strong>Inseam 7" en shorts.</strong> Mid-thigh, nunca arriba. Bermuda termina 1-2 dedos arriba de rodilla.</p></div>
-</section>
+<!-- ============ ACCESORIOS ============ -->
+<section id="accesorios">
+  <div class="section-header">
+    <span class="tag">Joyería + Reloj</span>
+    <h2>Accesorios STM</h2>
+    <p class="sub">Plata 925 desplazó al oro grueso · máximo 3 piezas visibles</p>
+  </div>
 
-<section id="evitar">
-  <h2>Lo que evitar</h2>
-  <p class="sub">Estos colores apagan tu subtono dorado.</p>
-  <div class="avoid">
-    <h4>No usar</h4>
-    <div class="avoid-grid">
-      <div class="item"><div class="swatch-mini" style="background:#FFFFFF;border:1px solid #ccc"></div><small>Blanco puro</small></div>
-      <div class="item"><div class="swatch-mini" style="background:#7D8491"></div><small>Gris plomo frío</small></div>
-      <div class="item"><div class="swatch-mini" style="background:#1F4FBF"></div><small>Azul royal</small></div>
-      <div class="item"><div class="swatch-mini" style="background:#F7CAD0"></div><small>Rosa bebé</small></div>
-      <div class="item"><div class="swatch-mini" style="background:#D4B43C"></div><small>Mostaza claro</small></div>
-      <div class="item"><div class="swatch-mini" style="background:#A8E6CF"></div><small>Menta</small></div>
+  <div class="product-grid">
+
+    <!-- CADENA -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#1a1a1d,#0E0E10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 30 Q50 20 80 30 Q75 70 50 75 Q25 70 20 30 Z" fill="none" stroke="#C0C0C0" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Joya · Cadena</div>
+        <h3>Cadena box plata 925 · 4mm × 55cm</h3>
+        <div class="brand">Taxco directo · Pepe Domínguez · Miansai</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#C0C0C0"></span>Plata 925</span>
+        </div>
+        <p class="desc">Asoma 2-3cm con tee. Grosor óptimo athletic build. Más de 6mm = chav.</p>
+        <div class="product-meta">
+          <span class="price">$95 USD / $1,800 MXN</span>
+          <a href="https://www.miansai.com/collections/mens-necklaces" target="_blank">Buy</a>
+        </div>
+      </div>
     </div>
+
+    <!-- SIGNET -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#1a1a1d,#0E0E10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="60" r="22" fill="none" stroke="#C0C0C0" stroke-width="4"/>
+          <rect x="40" y="50" width="20" height="20" rx="3" fill="#161616" stroke="#C0C0C0" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Joya · Anillo</div>
+        <h3>Signet plata maciza · cara ónix</h3>
+        <div class="brand">Tom Wood Cushion · Miansai · Taxco</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#C0C0C0"></span>Plata 925</span>
+          <span class="color-tag"><span class="dot" style="background:#161616"></span>Ónix</span>
+        </div>
+        <p class="desc">Meñique o anular derecho. Lectura "identidad estética definida".</p>
+        <div class="product-meta">
+          <span class="price">$105-250 USD</span>
+          <a href="https://www.tomwoodproject.com/collections/rings-men" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOOP -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#1a1a1d,#0E0E10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="60" r="20" fill="none" stroke="#C0C0C0" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Joya · Arete</div>
+        <h3>Hoop plata 10mm · una oreja</h3>
+        <div class="brand">Maria Black · Tom Wood</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#C0C0C0"></span>Plata 925</span>
+        </div>
+        <p class="desc">Lectura mediterránea, sigue on-trend 2025. Commit: ponlo y déjalo.</p>
+        <div class="product-meta">
+          <span class="price">$45-120 USD</span>
+          <a href="https://www.maria-black.com/collections/mens-earrings" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- WATCH -->
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#1a1a1d,#0E0E10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="15" width="20" height="15" fill="#2a1810"/>
+          <circle cx="50" cy="55" r="22" fill="#161616" stroke="#8C8C8C" stroke-width="2.5"/>
+          <circle cx="50" cy="55" r="0.8" fill="#F2EAD3"/>
+          <line x1="50" y1="55" x2="50" y2="42" stroke="#F2EAD3" stroke-width="1.2"/>
+          <line x1="50" y1="55" x2="58" y2="55" stroke="#F2EAD3" stroke-width="1.2"/>
+          <rect x="40" y="80" width="20" height="20" fill="#2a1810"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Joya · Reloj</div>
+        <h3>Hamilton Khaki Field Mechanical 38mm</h3>
+        <div class="brand">Hamilton · Mecánico · Cheat code</div>
+        <div class="color-tags">
+          <span class="color-tag"><span class="dot" style="background:#2a1810"></span>Strap cuero</span>
+          <span class="color-tag"><span class="dot" style="background:#3D4127"></span>Dial verde</span>
+        </div>
+        <p class="desc">Militar, mecánico, lee educado. Mejor pieza ancla en su rango.</p>
+        <div class="product-meta">
+          <span class="price">$595 USD</span>
+          <a href="https://www.hamiltonwatch.com/en/h69439931-khaki-field-mechanical" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="alert" style="margin-top:20px;">
+    <strong>Comprar plata en MX sin pagar pendejo:</strong> Taxco presencial (Pepe Domínguez, Ezequiel Tapia, mínimo $3,000 MXN). En CDMX: D'NUEVE25, Alicia Plata. <strong>Evitar Mercado 28 Cancún</strong> (x3 turista). Pedir sello .925 + factura, pesar por gramo.
   </div>
 </section>
 
-<section id="sport">
-  <h2>Sport STM</h2>
-  <p class="sub">Gym + combate. Negro domina, glúteo asoma, sudor visible es activo.</p>
-
-  <div class="outfit">
-    <span class="tag">Fuerza · uniform diario</span>
-    <h3>Tank racer-back + Pace Breaker 7"</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Tank atleta negro racer-back</strong><small>Young LA Immortal / Lulu Fast and Free · sin logo</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Short 7" negro</strong><small>Lulu Pace Breaker Linerless · Vuori Kore</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Reebok Nano X4 all-black</strong><small>Suela plana, fuerza</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Calcetín tobillero negro liso</strong><small>Cero detalles color</small></div></div>
-    </div>
+<!-- ============ FRAGANCIA ============ -->
+<section id="fragancia">
+  <div class="section-header">
+    <span class="tag">Olor</span>
+    <h2>Fragancia</h2>
+    <p class="sub">Piel cálida-grasa amplifica gourmand/maderas · siempre EDP/Parfum</p>
   </div>
 
-  <div class="outfit">
-    <span class="tag">Combate · BJJ/MMA</span>
-    <h3>Rashguard manga larga + fight shorts</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Rashguard Hayabusa Haburi</strong><small>Manga larga negro · marca cuerpo entero</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Fight shorts hasta rodilla</strong><small>Negro corte recto · sin slits agresivos</small></div></div>
-      <div class="piece"><div class="dot" style="background:#F2EAD3;opacity:0.3"></div><div class="label"><strong>Descalzo en mat</strong><small>Pies cuidados obligatorio</small></div></div>
+  <div class="product-grid">
+
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#3a2418,#1a0e08);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="35" y="10" width="30" height="8" fill="#161616"/>
+          <rect x="30" y="18" width="40" height="80" rx="3" fill="#3a2418" stroke="#8C6240" stroke-width="0.5"/>
+          <rect x="35" y="40" width="30" height="20" fill="#F2EAD3" opacity="0.15"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Fragancia · Noche</div>
+        <h3>Tom Ford Tobacco Vanille</h3>
+        <div class="brand">Tom Ford · Vainilla + tabaco + especias</div>
+        <p class="desc">El rey absoluto STM noche. Diseñado para cercanía. Hipnótico en piel cálida.</p>
+        <div class="product-meta">
+          <span class="price">$8,500 MXN</span>
+          <a href="https://www.elpalaciodehierro.com/buscador?text=tom+ford+tobacco+vanille" target="_blank">Buy</a>
+        </div>
+      </div>
     </div>
+
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#5C1A1B,#3a0e0f);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="10" width="20" height="8" fill="#C0C0C0"/>
+          <rect x="30" y="18" width="40" height="80" rx="3" fill="#5C1A1B" stroke="#8C2222" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Fragancia · Noche · Budget</div>
+        <h3>YSL Y EDP</h3>
+        <div class="brand">YSL · Salvia + ambroxan + jengibre</div>
+        <p class="desc">Sexy sin esfuerzo. Budget pero efectivo. Compliment-getter probado.</p>
+        <div class="product-meta">
+          <span class="price">$2,900 MXN</span>
+          <a href="https://www.sephora.com.mx/p/y-eau-de-parfum---ysl-yves-saint-laurent---masculino---132051.html" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#1B2A41,#0E0E10);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="10" width="20" height="8" fill="#161616"/>
+          <rect x="30" y="18" width="40" height="80" rx="3" fill="#1B2A41" stroke="#3a4a6b" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Fragancia · Daily</div>
+        <h3>Bleu de Chanel Parfum</h3>
+        <div class="brand">Chanel · Versátil · oficina/día</div>
+        <p class="desc">Profesional, nunca ofende. EDP/Parfum, no EDT.</p>
+        <div class="product-meta">
+          <span class="price">$4,200 MXN</span>
+          <a href="https://www.elpalaciodehierro.com/buscador?text=bleu+de+chanel+parfum" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="product-visual" style="background:linear-gradient(135deg,#222,#161616);">
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="40" y="10" width="20" height="6" fill="#0E0E10"/>
+          <rect x="35" y="18" width="30" height="80" rx="2" fill="#0E0E10" stroke="#444" stroke-width="0.5"/>
+          <text x="50" y="60" text-anchor="middle" fill="#fff" font-size="6" opacity="0.5">OLD SPICE</text>
+        </svg>
+      </div>
+      <div class="product-info">
+        <div class="cat">Gym · Deodorant</div>
+        <h3>Old Spice Sweat Defense Stronger Swagger</h3>
+        <div class="brand">Old Spice · Workhorse</div>
+        <p class="desc">Aplicar seco la noche anterior. Mejor performance que AM. Cero perfume durante entreno.</p>
+        <div class="product-meta">
+          <span class="price">$160 MXN</span>
+          <a href="https://www.amazon.com.mx/s?k=old+spice+sweat+defense+stronger+swagger" target="_blank">Buy</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="outfit">
-    <span class="tag">Cardio · outdoor</span>
-    <h3>Dri-fit gris + short 7" + Pegasus</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#2E2E2E"></div><div class="label"><strong>Camiseta dri-fit gris carbón</strong><small>Corte regular · sin logo grande</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Short 7" negro</strong><small>Nike Flex Stride · CRZ Yoga</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Nike Pegasus all-black</strong><small>Cushioning para volumen</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Llegada/salida gym</span>
-    <h3>Hoodie + jogger + tenis all-black</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Hoodie negro</strong><small>Lulu Steady State · Vuori</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Jogger tapered negro</strong><small>Lulu ABC · Vuori Sunday</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>On Cloud o Samba all-black</strong><small>Transición gym a bar</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Mochila gym negra monocromática</strong><small>Aer · Lulu Command Pack · cero logos</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Reglas Sport STM</span>
-    <h3>Los 6 commandments</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#C97A3F"></div><div class="label"><strong>Ajustar arriba, fluir abajo</strong><small>Top marca pecho/hombros · bottom define glúteo sin estrangular</small></div></div>
-      <div class="piece"><div class="dot" style="background:#C97A3F"></div><div class="label"><strong>Negro domina</strong><small>Accent en blanco hueso o gris carbón</small></div></div>
-      <div class="piece"><div class="dot" style="background:#C97A3F"></div><div class="label"><strong>Sin logos grandes</strong><small>Lectura "inseguro buscando branding"</small></div></div>
-      <div class="piece"><div class="dot" style="background:#C97A3F"></div><div class="label"><strong>Mate, nunca brillante</strong><small>Brillo = chav</small></div></div>
-      <div class="piece"><div class="dot" style="background:#C97A3F"></div><div class="label"><strong>Inseam 7" en shorts</strong><small>Marca pero no grita · 5" tryhard · 9" oculta trabajo</small></div></div>
-      <div class="piece"><div class="dot" style="background:#C97A3F"></div><div class="label"><strong>Sudor visible es activo</strong><small>No esconder con hyper-tech · lectura viril</small></div></div>
-    </div>
-  </div>
-
-  <div class="outfit">
-    <span class="tag">Shopping list · USD 280-450</span>
-    <h3>Rotación completa Sport STM</h3>
-    <div class="pieces">
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>2 tank racer-back negro</strong><small>USD 60-100 · Young LA o Lulu</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>1 camiseta dri-fit negra</strong><small>USD 25-65 · Metal Vent Tech o CRZ</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>2 short Pace Breaker 7" negro</strong><small>USD 50-130</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Reebok Nano X4 all-black</strong><small>USD 80-120 outlet</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Hoodie negro premium</strong><small>USD 80-120 · Lulu Steady State o Vuori</small></div></div>
-      <div class="piece"><div class="dot" style="background:#161616"></div><div class="label"><strong>Jogger tapered negro</strong><small>USD 30-100 · Uniqlo o Lulu</small></div></div>
-    </div>
+  <div class="alert" style="margin-top:20px;">
+    <strong>Aplicación:</strong> 3-4 sprays piel hidratada (cuello jugular, pecho, antebrazo interior). Nunca frotar muñecas. <strong>Evitar:</strong> Sauvage EDT (sobreexpuesto), Le Labo Santal 33 (cliché CDMX 2025), "pheromone cologne" TikTok (cero ciencia).
   </div>
 </section>
 
-<footer>Tap cualquier swatch para copiar el hex · v1.1 · Sport STM</footer>
+<!-- ============ SHOPPING LIST ============ -->
+<section id="shopping">
+  <div class="section-header">
+    <span class="tag">Resumen</span>
+    <h2>Shopping List</h2>
+    <p class="sub">Inversión total para arrancar STM-maxed</p>
+  </div>
 
-<div class="copy-toast" id="toast">Hex copiado</div>
+  <div class="outfit-card">
+    <span class="num">CASUAL · CORE STM</span>
+    <h3>Wardrobe casual mínimo</h3>
+    <p style="font-size:13px;line-height:1.7;margin-top:10px;">
+      <strong>2 henley negra/marino</strong> Buck Mason · $130<br>
+      <strong>2 camiseta negra Supima</strong> Uniqlo · $40<br>
+      <strong>1 camisa lino hueso</strong> Uniqlo Linen · $50<br>
+      <strong>1 polo Cuban borgoña</strong> Zara · $50<br>
+      <strong>1 jean negro slim</strong> A.P.C. o Levi's 511 · $80<br>
+      <strong>1 chino camel</strong> Bonobos · $98<br>
+      <strong>1 botín Chelsea whisky</strong> Thursday Duke · $200<br>
+      <strong>1 Adidas Samba OG black</strong> · $100<br>
+    </p>
+    <p style="font-size:14px;color:var(--accent);font-weight:700;margin-top:12px;border-top:1px solid rgba(242,234,211,0.1);padding-top:12px;">Total casual: ~$748 USD</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">GYM · CORE STM</span>
+    <h3>Sportswear mínimo</h3>
+    <p style="font-size:13px;line-height:1.7;margin-top:10px;">
+      <strong>2 tank racer-back</strong> Lulu Fast & Free · $116<br>
+      <strong>1 Metal Vent Tech SS</strong> Lulu · $78<br>
+      <strong>2 Pace Breaker 7"</strong> Lulu · $136<br>
+      <strong>1 rashguard Hayabusa Arrow LS</strong> · $65<br>
+      <strong>1 Hayabusa Kyoudo shorts</strong> · $55<br>
+      <strong>1 Reebok Nano X4 black</strong> sale · $110<br>
+      <strong>1 hoodie Lulu Steady State</strong> · $118<br>
+      <strong>1 Element 26 belt</strong> · $50<br>
+    </p>
+    <p style="font-size:14px;color:var(--accent);font-weight:700;margin-top:12px;border-top:1px solid rgba(242,234,211,0.1);padding-top:12px;">Total gym: ~$728 USD</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">JOYERÍA · KIT MÍNIMO</span>
+    <h3>USD 245</h3>
+    <p style="font-size:13px;line-height:1.7;margin-top:10px;">
+      <strong>Cadena box plata 925 4mm × 55cm</strong> Taxco · $95<br>
+      <strong>Signet plata cara ónix</strong> Tom Wood o Taxco · $105<br>
+      <strong>Hoop plata 10mm</strong> Maria Black · $45<br>
+    </p>
+    <p style="font-size:14px;color:var(--accent);font-weight:700;margin-top:12px;border-top:1px solid rgba(242,234,211,0.1);padding-top:12px;">Total joyería: ~$245 USD</p>
+  </div>
+
+  <div class="outfit-card">
+    <span class="num">FRAGANCIA · ARRANQUE</span>
+    <h3>Budget tier</h3>
+    <p style="font-size:13px;line-height:1.7;margin-top:10px;">
+      <strong>YSL Y EDP</strong> noche · $145<br>
+      <strong>Acqua di Gio Profondo</strong> daily · $120<br>
+      <strong>Old Spice Stronger Swagger</strong> gym · $8<br>
+    </p>
+    <p style="font-size:14px;color:var(--accent);font-weight:700;margin-top:12px;border-top:1px solid rgba(242,234,211,0.1);padding-top:12px;">Total fragancia: ~$273 USD</p>
+  </div>
+
+  <div class="alert" style="background:linear-gradient(135deg,rgba(155,79,31,0.25),rgba(181,85,43,0.1));">
+    <strong>INVERSIÓN TOTAL STM CORE:</strong><br>
+    Casual $748 + Gym $728 + Joyería $245 + Fragancia $273 = <strong style="font-size:18px;color:var(--accent);">~$1,994 USD / ~$40,000 MXN</strong><br><br>
+    Cubre 100% rotación casual + gym + combate + cita + accesorios. Reloj Hamilton ($595) y tatuaje first ($500) suman en mes 3-6.
+  </div>
+</section>
+
+<footer>
+  STM Maxed Edition · v2.0<br>
+  Tap cualquier swatch para copiar hex
+</footer>
 
 <script>
-  const toast = document.getElementById('toast');
-  document.querySelectorAll('.swatch').forEach(el => {
+  // Copy hex on swatch click
+  document.querySelectorAll('.chip, .palette-strip div').forEach(el => {
     el.addEventListener('click', () => {
-      const hex = el.querySelector('span').textContent.trim();
-      navigator.clipboard.writeText(hex).then(() => {
-        toast.textContent = hex + ' copiado';
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 1400);
-      });
+      const hex = el.dataset.hex || el.style.background.match(/#[0-9A-Fa-f]{6}/)?.[0];
+      if (hex) {
+        navigator.clipboard.writeText(hex);
+        const t = document.createElement('div');
+        t.textContent = hex + ' copied';
+        t.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#000;color:#F2EAD3;padding:10px 20px;border-radius:30px;font-size:12px;z-index:9999;border:1px solid #C97A3F';
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 1200);
+      }
     });
   });
 </script>
